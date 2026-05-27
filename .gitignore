@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+database/banco.db
+.idea/
+.DS_Store
