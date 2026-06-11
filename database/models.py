@@ -49,6 +49,30 @@ def criar_tabelas():
     """)
 
     conn.commit()
+    # Inserir categorias padrão se não existirem
+    categorias = [
+        ('Salário', 'Receita'),
+        ('Freelance', 'Receita'),
+        ('Investimentos', 'Receita'),
+        ('Outros', 'Receita'),
+        ('Alimentação', 'Gasto'),
+        ('Transporte', 'Gasto'),
+        ('Saúde', 'Gasto'),
+        ('Lazer', 'Gasto'),
+        ('Estudos', 'Gasto'),
+        ('Moradia', 'Gasto'),
+        ('Outros', 'Gasto'),
+    ]
+
+    for nome, tipo in categorias:
+        cursor.execute("""
+            INSERT OR IGNORE INTO Categorias (Nome, Tipo)
+            SELECT ?, ? WHERE NOT EXISTS (
+                SELECT 1 FROM Categorias WHERE Nome = ? AND Tipo = ?
+            )
+        """, (nome, tipo, nome, tipo))
+
+    conn.commit()
     conn.close()
     print("Banco de dados criado com sucesso!")
 
