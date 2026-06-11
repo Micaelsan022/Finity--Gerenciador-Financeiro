@@ -3,17 +3,17 @@ import pandas as pd
 from datetime import datetime
 from database.conexao import conectar
 
-st.set_page_config(page_title="Receitas", page_icon="💰", layout="wide")
+st.set_page_config(page_title="Receitas",layout="wide")
 
-st.title("💰 Receitas")
+st.title("Receitas")
 
 # Customização da barra lateral
 st.sidebar.markdown("""
-    <div style="text-align: center; padding: 20px 0;">
-        <h1 style="margin: 0; font-size: 2.5em;">💸 Finity</h1>
-        <p style="margin: 5px 0 0 0; color: #888; font-size: 0.9em;">Gerenciador financeiro</p>
+    <div style="padding: 24px 16px 16px 16px;">
+        <p style="margin: 0; font-size: 0.75em; color: #555; text-transform: uppercase; letter-spacing: 2px;">Gerenciador Financeiro</p>
+        <h1 style="margin: 4px 0 0 0; font-size: 2em; color: #2ECC71; font-weight: 800;">Finity</h1>
     </div>
-    <hr style="margin: 20px 0;">
+    <hr style="border: none; border-top: 1px solid #222; margin: 0 16px 16px 16px;">
 """, unsafe_allow_html=True)
 
 # Função para obter categorias de receita
@@ -74,7 +74,7 @@ def deletar_receita(id_receita):
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    st.subheader("➕ Nova Receita")
+    st.subheader("Nova Receita")
     
     with st.form(key="form_receita"):
         descricao = st.text_input("Descrição", placeholder="Ex: Salário, Freelance, Bônus...")
@@ -133,7 +133,8 @@ with col2:
         
         # Formatar coluna de valor
         df["Valor"] = df["Valor"].apply(lambda x: f"R$ {x:,.2f}".replace(",", "_").replace(".", ",").replace("_", "."))
-        
+
+
         # Exibir tabela
         st.dataframe(
             df[["Descrição", "Valor", "Data", "Categoria"]],
