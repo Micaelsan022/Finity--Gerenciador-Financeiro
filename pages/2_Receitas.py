@@ -3,18 +3,15 @@ import pandas as pd
 from datetime import datetime
 from database.conexao import conectar
 
+from assets.style import aplicar_estilo, aplicar_sidebar
+
+aplicar_estilo()
+aplicar_sidebar()
+
 st.set_page_config(page_title="Receitas",layout="wide")
 
 st.title("Receitas")
 
-# Customização da barra lateral
-st.sidebar.markdown("""
-    <div style="padding: 24px 16px 16px 16px;">
-        <p style="margin: 0; font-size: 0.75em; color: #555; text-transform: uppercase; letter-spacing: 2px;">Gerenciador Financeiro</p>
-        <h1 style="margin: 4px 0 0 0; font-size: 2em; color: #2ECC71; font-weight: 800;">Finity</h1>
-    </div>
-    <hr style="border: none; border-top: 1px solid #222; margin: 0 16px 16px 16px;">
-""", unsafe_allow_html=True)
 
 # Função para obter categorias de receita
 def obter_categorias_receita():

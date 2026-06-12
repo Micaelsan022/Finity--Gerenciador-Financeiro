@@ -1,5 +1,4 @@
 import streamlit as st
-from services.calculos import total_receitas, total_gastos, saldo_atual
 
 st.set_page_config(
     page_title="Finity - Gerenciador Financeiro",
@@ -10,6 +9,28 @@ st.set_page_config(
 
 st.markdown("""
     <style>
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes countUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         [data-testid="stSidebar"] {
             background-color: #0f0f0f;
             border-right: 1px solid #1a1a1a;
@@ -17,123 +38,193 @@ st.markdown("""
         [data-testid="stSidebar"] * {
             color: #ffffff !important;
         }
-        .metric-card {
-            background: linear-gradient(135deg, #1a1a1a, #222222);
-            border: 1px solid #2a2a2a;
+        [data-testid="stAppViewContainer"] {
+            background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0d1a12 100%);
+        }
+
+        .hero-container {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            animation: fadeInDown 0.8s ease;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ECC71;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-size: 5em;
+            font-weight: 900;
+            background: linear-gradient(90deg, #2ECC71, #27AE60, #2ECC71);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            margin: 0;
+            line-height: 1;
+        }
+        .hero-subtitle {
+            font-size: 1.2em;
+            color: #888;
+            margin: 16px 0 0 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .features-container {
+            display: flex;
+            gap: 16px;
+            margin: 40px 0;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+        .feature-card {
+            flex: 1;
+            background: linear-gradient(135deg, #141414, #1a1a1a);
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+        .feature-card:hover {
+            border-color: #2ECC71;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(46, 204, 113, 0.15);
+        }
+        .feature-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+        }
+        .feature-title {
+            font-size: 1em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .feature-desc {
+            font-size: 0.82em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 16px;
+            margin: 20px 0;
+            animation: fadeInUp 0.8s ease 0.5s both;
+        }
+        .stat-card {
+            flex: 1;
+            background: linear-gradient(135deg, #0d1a12, #111);
+            border: 1px solid rgba(46, 204, 113, 0.2);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
+            animation: pulse 2s infinite;
         }
-        .metric-value {
-            font-size: 1.8em;
-            font-weight: bold;
-            margin: 8px 0;
+        .stat-number {
+            font-size: 2em;
+            font-weight: 800;
+            color: #2ECC71;
+            animation: countUp 0.8s ease;
         }
-        .metric-label {
-            font-size: 0.85em;
-            color: #888888;
+        .stat-label {
+            font-size: 0.78em;
+            color: #555;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 4px;
         }
-        .verde { color: #2ECC71; }
-        .vermelho { color: #E74C3C; }
+
+        .cta-container {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeInUp 0.8s ease 0.7s both;
+        }
+        .cta-text {
+            color: #444;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+        }
+        .cta-arrow {
+            color: #2ECC71;
+            font-size: 1.5em;
+            animation: fadeInDown 1s ease infinite alternate;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #222;
+            font-size: 0.75em;
+            padding: 20px 0;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 20px;
+        }
     </style>
-""", unsafe_allow_html=True)
 
-st.sidebar.markdown("""
-    <div style="padding: 24px 16px 16px 16px;">
-        <p style="margin: 0; font-size: 0.75em; color: #555; text-transform: uppercase; letter-spacing: 2px;">Gerenciador Financeiro</p>
-        <h1 style="margin: 4px 0 0 0; font-size: 2em; color: #2ECC71; font-weight: 800;">Finity</h1>
+    <div class="hero-container">
+        <div class="hero-badge">Gerenciador Financeiro Pessoal</div>
+        <h1 class="hero-title">Finity</h1>
+        <p class="hero-subtitle">Controle suas finanças com inteligência e estilo</p>
     </div>
-    <hr style="border: none; border-top: 1px solid #222; margin: 0 16px 16px 16px;">
-""", unsafe_allow_html=True)
 
-receitas = total_receitas()
-gastos = total_gastos()
-saldo = saldo_atual()
-
-st.markdown("""
-    <div style="padding: 40px 0 20px 0;">
-        <p style="margin: 0; font-size: 0.8em; color: #888; text-transform: uppercase; letter-spacing: 3px;">Bem-vindo ao</p>
-        <h1 style="margin: 4px 0 0 0; font-size: 3em; font-weight: 800; color: #2ECC71;">Finity</h1>
-        <p style="margin: 8px 0 0 0; color: #aaa; font-size: 1em;">Seu gerenciador financeiro pessoal</p>
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number">💰</div>
+            <div class="stat-label">Controle de Receitas</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">📊</div>
+            <div class="stat-label">Dashboard Interativo</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">🎯</div>
+            <div class="stat-label">Metas Financeiras</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">⚠️</div>
+            <div class="stat-label">Alertas Inteligentes</div>
+        </div>
     </div>
-""", unsafe_allow_html=True)
 
-st.markdown("---")
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-label">Total de Receitas</div>
-            <div class="metric-value verde">R$ {receitas:,.2f}</div>
+    <div class="features-container">
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <div class="feature-title">Receitas</div>
+            <div class="feature-desc">Registre e acompanhe todas as suas entradas de dinheiro por categoria</div>
         </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-label">Total de Gastos</div>
-            <div class="metric-value vermelho">R$ {gastos:,.2f}</div>
+        <div class="feature-card">
+            <div class="feature-icon">💸</div>
+            <div class="feature-title">Gastos</div>
+            <div class="feature-desc">Monitore seus gastos e receba alertas quando ultrapassar os limites</div>
         </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    cor = "verde" if saldo >= 0 else "vermelho"
-    st.markdown(f"""
-        <div class="metric-card">
-            <div class="metric-label">Saldo Atual</div>
-            <div class="metric-value {cor}">R$ {saldo:,.2f}</div>
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-title">Metas</div>
+            <div class="feature-desc">Defina objetivos financeiros e acompanhe seu progresso em tempo real</div>
         </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("---")
-st.markdown("<h3 style='color:#fff;'>Como usar o Finity</h3>", unsafe_allow_html=True)
-
-c1, c2, c3, c4 = st.columns(4)
-
-with c1:
-    st.markdown("""
-        <div class="metric-card">
-            <div style="font-size:2em;">💰</div>
-            <div style="font-weight:bold;margin:8px 0;color:#fff;">Receitas</div>
-            <div style="color:#888;font-size:0.85em;">Registre todas as suas entradas de dinheiro</div>
+        <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <div class="feature-title">Relatórios</div>
+            <div class="feature-desc">Visualize gráficos e relatórios detalhados das suas finanças</div>
         </div>
-    """, unsafe_allow_html=True)
+    </div>
 
-with c2:
-    st.markdown("""
-        <div class="metric-card">
-            <div style="font-size:2em;">💸</div>
-            <div style="font-weight:bold;margin:8px 0;color:#fff;">Gastos</div>
-            <div style="color:#888;font-size:0.85em;">Monitore seus gastos por categoria</div>
-        </div>
-    """, unsafe_allow_html=True)
+    <div class="cta-container">
+        <p class="cta-text">Use o menu lateral para começar</p>
+        <div class="cta-arrow">←</div>
+    </div>
 
-with c3:
-    st.markdown("""
-        <div class="metric-card">
-            <div style="font-size:2em;">🎯</div>
-            <div style="font-weight:bold;margin:8px 0;color:#fff;">Metas</div>
-            <div style="color:#888;font-size:0.85em;">Defina e acompanhe seus objetivos</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-with c4:
-    st.markdown("""
-        <div class="metric-card">
-            <div style="font-size:2em;">📊</div>
-            <div style="font-weight:bold;margin:8px 0;color:#fff;">Relatórios</div>
-            <div style="color:#888;font-size:0.85em;">Visualize seus dados financeiros</div>
-        </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("""
-    <div style="text-align:center;color:#333;font-size:0.8em;padding:20px 0;">
+    <div class="footer-text">
         Finity v1.0.0 — Projeto Acadêmico
     </div>
 """, unsafe_allow_html=True)
