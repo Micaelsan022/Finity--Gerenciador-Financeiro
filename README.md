@@ -131,11 +131,5 @@ Depois abre um **Pull Request** no GitHub pra juntar com a `main`.
 ## 📌 Próximas funcionalidades
 
 - [ ] Exportar relatórios em PDF
-- [ ] Sistema de login
 - [ ] IA para previsão de gastos
 
----
-
-## 📄 Licença
-
-MIT
