@@ -1,31 +1,65 @@
 # 💸 Finity
-> Gerenciador financeiro pessoal feito em Python com dashboard interativo, gráficos e alertas inteligentes.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.12-blue?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/Streamlit-App-red?style=for-the-badge&logo=streamlit">
+  <img src="https://img.shields.io/badge/SQLite-Database-blue?style=for-the-badge&logo=sqlite">
+  <img src="https://img.shields.io/badge/Plotly-Graphs-3f4f75?style=for-the-badge&logo=plotly">
+</p>
+
+<p align="center">
+  <strong>Gerenciador financeiro pessoal desenvolvido em Python para ajudar no controle de receitas, gastos e metas financeiras.</strong>
+</p>
 
 ---
 
-## 🛠️ Tecnologias
+## ✨ Funcionalidades
 
-| Tecnologia | Função |
-|---|---|
-| Python | Linguagem principal |
-| Streamlit | Interface visual |
-| SQLite | Banco de dados |
-| Plotly | Gráficos interativos |
-| Pandas | Manipulação de dados |
+✅ Dashboard interativo com indicadores financeiros
+✅ Cadastro de receitas e despesas
+✅ Controle de metas financeiras
+✅ Relatórios detalhados
+✅ Gráficos interativos com Plotly
+✅ Banco de dados local utilizando SQLite
+✅ Categorias automáticas
+
+---
+
+## 📸 Preview
+
+> Adicione aqui algumas imagens do sistema.
+
+```md
+/assets/dashboard.png
+/assets/gastos.png
+/assets/relatorios.png
+```
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+| Tecnologia   | Descrição            |
+| ------------ | -------------------- |
+| 🐍 Python    | Linguagem principal  |
+| 🎨 Streamlit | Interface web        |
+| 🗄️ SQLite   | Banco de dados       |
+| 📊 Plotly    | Gráficos interativos |
+| 🐼 Pandas    | Manipulação de dados |
 
 ---
 
 ## 📂 Estrutura do Projeto
 
-```
+```bash
 Finity/
 ├── app.py
 ├── requirements.txt
 │
 ├── database/
-│   ├── conexao.py        # Conecta ao banco
-│   ├── models.py         # Cria as tabelas
-│   └── banco.db          # Gerado automaticamente
+│   ├── conexao.py
+│   ├── models.py
+│   └── banco.db
 │
 ├── pages/
 │   ├── 1_Dashboard.py
@@ -43,92 +77,132 @@ Finity/
 │   └── graficos.py
 │
 └── assets/
+    └── style.py
 ```
 
 ---
 
-## ▶️ Como rodar o projeto
+# 🚀 Como executar o projeto
 
-### 1. Clone o repositório
+## 1️⃣ Clone o repositório
+
 ```bash
 git clone https://github.com/Micaelsan022/Finity--Gerenciador-Financeiro.git
+cd Finity--Gerenciador-Financeiro
 ```
 
-### 2. Crie o ambiente virtual
+## 2️⃣ Crie o ambiente virtual
+
 ```bash
 python -m venv venv
 ```
 
-Ative o venv:
+### Ative o ambiente
+
+**Linux/macOS**
 
 ```bash
-# Linux / macOS
 source venv/bin/activate
+```
 
-# Windows
+**Windows**
+
+```bash
 venv\Scripts\activate
 ```
 
-> Você sabe que o venv está ativo quando aparece `(venv)` no início do terminal.
+---
 
-### 3. Instale as dependências
+## 3️⃣ Instale as dependências
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Crie o banco de dados
+---
+
+## 4️⃣ Crie o banco de dados
+
 ```bash
 python database/models.py
 ```
 
-### 5. Rode o projeto
+> As categorias padrão são criadas automaticamente.
+
+---
+
+## 5️⃣ Execute a aplicação
+
 ```bash
 streamlit run app.py
 ```
 
-Acesse no navegador: `http://localhost:8501`
+Acesse:
 
----
-
-## 🔁 Como salvar suas alterações no GitHub
-
-Sempre que fizer alguma mudança no projeto, rode no terminal:
-
-```bash
-git add .
-git commit -m "descreva o que você fez aqui"
-git push
+```text
+http://localhost:8501
 ```
 
-Exemplos de mensagens de commit:
-- `feat: adiciona tela de metas`
-- `fix: corrige cálculo de saldo`
-- `docs: atualiza README`
-
 ---
 
-## 🌿 Como trabalhar em equipe sem conflito
-
-Cada integrante deve criar uma branch antes de mexer no código:
+# 🌿 Contribuindo
 
 ```bash
-# Cria e entra na branch
-git checkout -b feature/nome-da-sua-parte
+git checkout -b feature/minha-feature
 
-# Depois de terminar, sobe pro GitHub
 git add .
-git commit -m "feat: descrição do que foi feito"
-git push origin feature/nome-da-sua-parte
+git commit -m "feat: descrição"
+
+git push origin feature/minha-feature
 ```
 
-Depois abre um **Pull Request** no GitHub pra juntar com a `main`.
+Depois, abra um **Pull Request** para a branch `main`.
 
-> Nunca commitar diretamente na `main`.
+> ⚠️ Evite realizar commits diretamente na `main`.
 
 ---
 
-## 📌 Próximas funcionalidades
+# 📌 Roadmap
 
-- [ ] Exportar relatórios em PDF
-- [ ] IA para previsão de gastos
+* [ ] Exportação de relatórios em PDF
+* [ ] Sistema de login e autenticação
+* [ ] Inteligência artificial para previsão de gastos
+* [ ] Metas financeiras avançadas
+* [ ] Modo escuro
 
+---
+
+## 🤝 Contribuidores
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Micaelsan022">
+        <img src="https://github.com/Micaelsan022.png" width="100px;" alt=""/>
+        <br />
+        <sub><b>Micael Santos</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/LightList18375">
+        <img src="https://avatars.githubusercontent.com/u/244845150?v=4" width="100px;" alt=""/>
+        <br />
+        <sub><b>Pedro San</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/joaovictorsoaresreis6-cell">
+        <img src="https://avatars.githubusercontent.com/u/268621453?v=4" width="100px;" alt=""/>
+        <br />
+        <sub><b>João Victor</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/danilo-joshue">
+        <img src="https://avatars.githubusercontent.com/u/241025165?v=4" width="100px;" alt=""/>
+        <br />
+        <sub><b>Danilo Joshue</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
