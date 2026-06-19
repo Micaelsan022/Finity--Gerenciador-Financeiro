@@ -51,8 +51,7 @@ Finity/
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/Micaelsan022/Finity--Gerenciador-Financeiro..git
-cd Finity--Gerenciador-Financeiro.
+git clone https://github.com/Micaelsan022/Finity--Gerenciador-Financeiro.git
 ```
 
 ### 2. Crie o ambiente virtual
