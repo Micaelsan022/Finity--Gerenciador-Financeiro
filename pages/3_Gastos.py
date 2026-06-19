@@ -69,14 +69,14 @@ def deletar_gasto(id_gasto):
         conn.close()
 
 # Exibir alertas
-st.subheader("🚨 Alertas Financeiros")
+st.subheader("Alertas Financeiros")
 alertas = analisar_gastos()
 
 if alertas:
     for alerta in alertas:
         st.warning(alerta)
 else:
-    st.info("✅ Seus gastos estão sob controle!")
+    st.info("Seus gastos estão sob controle!")
 
 st.markdown("---")
 
@@ -98,7 +98,7 @@ with col1:
         else:
             nome_categoria = st.selectbox("Categoria", options=list(categorias.keys()))
         
-        submitted = st.form_submit_button("💾 Salvar Gasto", use_container_width=True)
+        submitted = st.form_submit_button("Salvar Gasto", use_container_width=True)
         
         if submitted:
             if descricao and valor > 0:
@@ -122,15 +122,15 @@ with col1:
                 
                 if id_categoria:
                     if inserir_gasto(descricao, valor, data, id_categoria):
-                        st.success("✅ Gasto adicionado com sucesso!")
+                        st.success("Gasto adicionado com sucesso!")
                         st.rerun()
                     else:
-                        st.error("❌ Erro ao adicionar gasto")
+                        st.error("Erro ao adicionar gasto")
             else:
                 st.error("Preencha todos os campos corretamente")
 
 with col2:
-    st.subheader("📋 Histórico de Gastos")
+    st.subheader("Histórico de Gastos")
     
     gastos = obter_gastos()
     
@@ -153,19 +153,19 @@ with col2:
         
         # Adicionar opção de exclusão
         st.markdown("---")
-        st.subheader("🗑️ Excluir Gasto")
+        st.subheader("Excluir Gasto")
         
         gastos_para_deletar = {f"{g[1]} - R$ {g[2]:.2f} ({g[3]})": g[0] for g in gastos}
         gasto_selecionado = st.selectbox("Selecione o gasto para deletar", 
                                         options=list(gastos_para_deletar.keys()),
                                         key="delete_gasto")
         
-        if st.button("🗑️ Deletar Gasto Selecionado", use_container_width=True):
+        if st.button("Deletar Gasto Selecionado", use_container_width=True):
             id_gasto = gastos_para_deletar[gasto_selecionado]
             if deletar_gasto(id_gasto):
-                st.success("✅ Gasto deletado com sucesso!")
+                st.success("Gasto deletado com sucesso!")
                 st.rerun()
             else:
-                st.error("❌ Erro ao deletar gasto")
+                st.error("Erro ao deletar gasto")
     else:
-        st.info("📭 Nenhum gasto cadastrado ainda. Comece adicionando um gasto!")
+        st.info("Nenhum gasto cadastrado ainda. Comece adicionando um gasto!")

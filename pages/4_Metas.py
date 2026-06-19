@@ -10,7 +10,7 @@ aplicar_sidebar()
 
 st.set_page_config(page_title="Metas", page_icon="🎯", layout="wide")
 
-st.title("🎯 Metas Financeiras")
+st.title("Metas Financeiras")
 
 
 # Função para inserir meta
@@ -88,22 +88,22 @@ with st.form(key="form_meta"):
     with col3:
         prazo = st.date_input("Prazo", value=datetime.now())
     
-    submitted = st.form_submit_button("💾 Criar Meta", use_container_width=True)
+    submitted = st.form_submit_button("Criar Meta", use_container_width=True)
     
     if submitted:
         if nome and valor_alvo > 0:
             if inserir_meta(nome, valor_alvo, prazo):
-                st.success("✅ Meta criada com sucesso!")
+                st.success("Meta criada com sucesso!")
                 st.rerun()
             else:
-                st.error("❌ Erro ao criar meta")
+                st.error("Erro ao criar meta")
         else:
             st.error("Preencha todos os campos corretamente")
 
 st.markdown("---")
 
 # Exibir metas em cards
-st.subheader("📊 Suas Metas")
+st.subheader("Suas Metas")
 
 metas = obter_metas()
 
@@ -148,12 +148,12 @@ if metas:
             
             with col2:
                 st.markdown("---")
-                if st.button("🗑️ Deletar", key=f"delete_{id_meta}", use_container_width=True):
+                if st.button("Deletar", key=f"delete_{id_meta}", use_container_width=True):
                     if deletar_meta(id_meta):
-                        st.success("✅ Meta deletada!")
+                        st.success("Meta deletada!")
                         st.rerun()
                     else:
-                        st.error("❌ Erro ao deletar")
+                        st.error("Erro ao deletar")
             
             # Input para atualizar valor
             st.markdown("**Atualizar Valor Atual:**")
@@ -172,17 +172,17 @@ if metas:
             with col_input2:
                 if st.button("✅", key=f"update_{id_meta}"):
                     if atualizar_valor_meta(id_meta, novo_valor):
-                        st.success("✅ Meta atualizada!")
+                        st.success("Meta atualizada!")
                         st.rerun()
                     else:
-                        st.error("❌ Erro ao atualizar")
+                        st.error("Erro ao atualizar")
 else:
-    st.info("📭 Nenhuma meta cadastrada ainda. Comece criando sua primeira meta!")
+    st.info("Nenhuma meta cadastrada ainda. Comece criando sua primeira meta!")
 
 # Resumo de metas
 if metas:
     st.markdown("---")
-    st.subheader("📈 Resumo de Metas")
+    st.subheader("Resumo de Metas")
     
     total_valor_alvo = sum(m[2] for m in metas)
     total_valor_atual = sum(m[3] for m in metas)

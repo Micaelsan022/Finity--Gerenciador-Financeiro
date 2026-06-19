@@ -85,7 +85,7 @@ with col1:
         else:
             nome_categoria = st.selectbox("Categoria", options=list(categorias.keys()))
         
-        submitted = st.form_submit_button("💾 Salvar Receita", use_container_width=True)
+        submitted = st.form_submit_button("Salvar Receita", use_container_width=True)
         
         if submitted:
             if descricao and valor > 0:
@@ -109,15 +109,15 @@ with col1:
                 
                 if id_categoria:
                     if inserir_receita(descricao, valor, data, id_categoria):
-                        st.success("✅ Receita adicionada com sucesso!")
+                        st.success("Receita adicionada com sucesso!")
                         st.rerun()
                     else:
-                        st.error("❌ Erro ao adicionar receita")
+                        st.error("Erro ao adicionar receita")
             else:
                 st.error("Preencha todos os campos corretamente")
 
 with col2:
-    st.subheader("📋 Histórico de Receitas")
+    st.subheader("Histórico de Receitas")
     
     receitas = obter_receitas()
     
@@ -141,19 +141,19 @@ with col2:
         
         # Adicionar opção de exclusão
         st.markdown("---")
-        st.subheader("🗑️ Excluir Receita")
+        st.subheader("Excluir Receita")
         
         receitas_para_deletar = {f"{r[1]} - R$ {r[2]:.2f} ({r[3]})": r[0] for r in receitas}
         receita_selecionada = st.selectbox("Selecione a receita para deletar", 
                                            options=list(receitas_para_deletar.keys()),
                                            key="delete_receita")
         
-        if st.button("🗑️ Deletar Receita Selecionada", use_container_width=True):
+        if st.button("Deletar Receita Selecionada", use_container_width=True):
             id_receita = receitas_para_deletar[receita_selecionada]
             if deletar_receita(id_receita):
-                st.success("✅ Receita deletada com sucesso!")
+                st.success("Receita deletada com sucesso!")
                 st.rerun()
             else:
-                st.error("❌ Erro ao deletar receita")
+                st.error("Erro ao deletar receita")
     else:
-        st.info("📭 Nenhuma receita cadastrada ainda. Comece adicionando uma receita!")
+        st.info("Nenhuma receita cadastrada ainda. Comece adicionando uma receita!")
